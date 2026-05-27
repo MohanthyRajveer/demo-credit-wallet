@@ -15,6 +15,10 @@ const start = async (): Promise<void> => {
     await db.raw('SELECT 1');
     logger.info('Database connection established');
 
+    // Run migrations automatically on startup
+    await db.migrate.latest();
+    logger.info('Migrations completed');
+
     const app = createApp(db);
 
     app.listen(PORT, () => {
